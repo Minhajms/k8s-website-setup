@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: website
-          image: minhajms/php-mysql-test:4.0
+          image: minhajms/php-mysql-test:5.0
           ports:
             - containerPort: 80
           env:
