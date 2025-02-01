@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: website
-          image: minhajms/php-mysql-test:1.1
+          image: minhajms/php-mysql-test:4.0
           ports:
             - containerPort: 80
           env:
@@ -31,6 +31,11 @@ spec:
                 secretKeyRef:
                   name: mysql-secret
                   key: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_DATABASE
 ---
 apiVersion: v1
 kind: Service
@@ -38,10 +43,11 @@ metadata:
   name: website-service
   namespace: website-ns
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: website
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
+
